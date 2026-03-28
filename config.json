@@ -1,0 +1,14 @@
+{
+    "translators": {
+        "google": {
+            "enabled": true,
+            "max_chars": 4500
+        },
+        "papago": {
+            "enabled": false,
+            "client_id": "",
+            "client_secret": "",
+            "max_chars": 1000
+        }
+    }
+}
