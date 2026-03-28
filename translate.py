@@ -48,8 +48,11 @@ SC2_LOCALES = {
     "zhTW": "zh-TW"
 }
 
-# Default to translating to ALL SC2 languages except English
-DEFAULT_LANGS = [l for l in SC2_LOCALES.keys() if l != "enUS"]
+# All supported SC2 locales
+ALL_LOCALES = sorted([l for l in SC2_LOCALES.keys() if l != "enUS"])
+
+# Default languages (from config or all)
+DEFAULT_LANGS = CONFIG.get("default_langs", ALL_LOCALES)
 
 # ======================
 # TRANSLATORS
@@ -434,20 +437,33 @@ def sync_file(input_file, last_file, output_pattern, target_langs, copy_only=Fal
 def process_file():
     parser = argparse.ArgumentParser(description='SC2 GameStrings Translator with Change Detection')
     parser.add_argument('langs', nargs='*', help='Target languages (e.g., ruRU koKR frFR)')
+    parser.add_argument('--langs', dest='langs_flag', help='Comma-separated list of target languages (e.g., ruRU,koKR)')
     parser.add_argument('--input', '-i', help='Input GameStrings.txt path')
     parser.add_argument('--last', '-l', help='Previous GameStrings.txt for comparison')
     parser.add_argument('--output', '-o', help='Output pattern (use {lang} or {locale})')
-    parser.add_argument('--copy-only', action='store_true', help='Skip translation, just copy strings to target files (useful for Hotkey/Trigger strings)')
-    parser.add_argument('--mod', '-m', help='Path to SC2Mod folder for full synchronization (GameStrings, ObjectStrings, TriggerStrings, GameHotkeys)')
+    parser.add_argument('--copy-only', action='store_true', help='Skip translation, just copy strings to target files')
+    parser.add_argument('--mod', '-m', help='Path to SC2Mod folder for full synchronization')
     parser.add_argument('--eta', action='store_true', help='Show estimated time to completion (ETA) in progress bar')
+    parser.add_argument('--list', action='store_true', help='List all supported SC2 locales and exit')
     
     # Store args globally or ensure local show_progress can access it
     global args
     
     args = parser.parse_args()
 
+    if args.list:
+        print("Supported SC2 Locales:")
+        for loc in sorted(SC2_LOCALES.keys()):
+            print(f"  - {loc} ({SC2_LOCALES[loc]})")
+        return
+
     # Input language validation
-    raw_langs = args.langs if args.langs else DEFAULT_LANGS
+    raw_langs = list(args.langs)
+    if args.langs_flag:
+        raw_langs.extend(args.langs_flag.replace(',', ' ').split())
+    
+    if not raw_langs:
+        raw_langs = DEFAULT_LANGS
     target_langs = []
     
     for l in raw_langs:

@@ -40,7 +40,15 @@ Sync your entire mod localization across all 11 non-English locales:
 python translate/translate.py --mod "Path/To/Your/Mod.SC2Mod"
 ```
 
-### 2. Translate Specific File
+### 2. Sync Selected Locales
+You can specify locales at the end or use the `--langs` flag:
+```bash
+python translate/translate.py --mod "Path/To/Your/Mod.SC2Mod" ruRU koKR
+# OR
+python translate/translate.py --mod "Path/To/Your/Mod.SC2Mod" --langs ruRU,koKR
+```
+
+### 3. Translate Specific File
 ```bash
 python translate/translate.py -i "input.txt" -o "output_{lang}.txt" ruRU koKR
 ```
@@ -80,7 +88,15 @@ python translate/translate.py -i "input.txt" -o "output_{lang}.txt" ruRU koKR
 python translate/translate.py --mod "Путь/К/Вашему/Моду.SC2Mod"
 ```
 
-### 2. Перевод конкретного файла
+### 2. Синхронизация выборочных локализаций
+Вы можете указать нужные языки в конце команды или через флаг `--langs`:
+```bash
+python translate/translate.py --mod "Путь/К/Вашему/Моду.SC2Mod" ruRU koKR
+# ИЛИ
+python translate/translate.py --mod "Путь/К/Вашему/Моду.SC2Mod" --langs ruRU,koKR
+```
+
+### 3. Перевод конкретного файла
 ```bash
 python translate/translate.py -i "input.txt" -o "output_{lang}.txt" ruRU koKR
 ```
@@ -89,9 +105,20 @@ python translate/translate.py -i "input.txt" -o "output_{lang}.txt" ruRU koKR
 
 ## Advanced Options / Дополнительные опции
 - --mod (-m): Path to mod folder for full sync / Путь к папке мода.
+- --langs: Selected languages (comma-separated: ruRU,koKR) / Выбранные языки через запятую.
+- --list: List all supported locales / Список всех поддерживаемых локализаций.
 - --last (-l): Path for comparison files (defaults to last/) / Путь к файлам сравнения.
 - --copy-only: Only sync via copying (skip translation) / Синхронизация без перевода.
 - --eta: Show estimated time in progress bar / Показывать оставшееся время.
+
+## Config (config.json)
+You can set `default_langs` in `config.json` to avoid typing them every time:
+```json
+{
+    "default_langs": ["ruRU", "koKR"],
+    "translators": { ... }
+}
+```
 
 ## Interface / Интерфейс
 [ruRU] Progress: 1250/3022 (5) |███████████-------------| 41.4% | 01:15

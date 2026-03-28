@@ -1,4 +1,5 @@
 {
+    "default_langs": [],
     "translators": {
         "google": {
             "enabled": true,
