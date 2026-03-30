@@ -10,6 +10,19 @@
             "client_id": "",
             "client_secret": "",
             "max_chars": 1000
+        },
+        "libre": {
+            "enabled": false,
+            "url": "http://localhost:5000/translate",
+            "max_chars": 1000
+        },
+        "llama": {
+            "enabled": false,
+            "ollama_path": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Ollama\\ollama.exe",
+            "model": "llama3",
+            "api_url": "http://localhost:11434/api/generate",
+            "context_file": "llama_context.txt",
+            "max_chars": 15000
         }
     }
 }

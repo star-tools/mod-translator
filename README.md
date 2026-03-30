@@ -110,6 +110,8 @@ python translate/translate.py -i "input.txt" -o "output_{lang}.txt" ruRU koKR
 - --last (-l): Path for comparison files (defaults to last/) / Путь к файлам сравнения.
 - --copy-only: Only sync via copying (skip translation) / Синхронизация без перевода.
 - --eta: Show estimated time in progress bar / Показывать оставшееся время.
+- --translator: Force use a specific translator (libre, google, papago) / Принудительное использование конкретного переводчика (libre, google, papago).
+- --force: Force translation of all strings, ignoring last file / Принудительный перевод всех строк, игнорируя последний файл.
 
 ## Config (config.json)
 You can set `default_langs` in `config.json` to avoid typing them every time:
@@ -130,3 +132,8 @@ You can set `default_langs` in `config.json` to avoid typing them every time:
 ## Important / Важно
 - Encoding / Кодировка: Files must be UTF-8 with BOM (standard for SC2). / Файлы должны быть в формате UTF-8 с BOM.
 - Max Chars: Do not exceed max_chars: 4800 in config.json for Google Translate. / Рекомендуем не превышать max_chars: 4800 для Google API.
+
+
+## test example
+
+python translate.py -i input/gamestrings.txt -o output/gamestrings_ruRU_llama.txt ruRU --force --translator llama
